@@ -37,4 +37,16 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function space() {
+        return $this->hasOne('App\Space', 'space_id', 'user_id');
+    }
+
+    public function folders() {
+        return $this->hasMany('App\Folder');
+    }
+
+    public function files() {
+        return $this->hasMany('App\File');
+    }
 }

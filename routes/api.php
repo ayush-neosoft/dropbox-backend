@@ -10,5 +10,8 @@ Route::post('login', 'Auth\ApiAuthController@login');
 Route::post('register', 'Auth\ApiAuthController@register');
 Route::post('logout', 'Auth\ApiAuthController@logout');
 Route::group(['middleware' => 'auth:api'], function(){
-    Route::get('details', 'Auth\ApiAuthController@details');
+  Route::get('me', 'Auth\ApiAuthController@me');
+  Route::apiResource('spaces', 'SpacesController');
+  Route::apiResource('folders', 'FoldersController');
+  Route::apiResource('files', 'FilesController');
 });
