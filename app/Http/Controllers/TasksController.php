@@ -2,11 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\File;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 
-class FilesController extends Controller
+class TasksController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +13,7 @@ class FilesController extends Controller
      */
     public function index()
     {
-        return $files = File::all();
+        //
     }
 
     /**
@@ -36,30 +34,7 @@ class FilesController extends Controller
      */
     public function store(Request $request)
     {
-        $user_id = auth()->user()->id;
-        $dir = $user_id.'/'.date("Y").'/'.date("F");
-
-        for($i=0; $i < count($request->file('files')); $i++) {
-            $file = $request->file('files')[$i];
-            $uploads[] = File::create([
-                'user_id' => $user_id, 
-                'folder_id' => 1,
-                'title' => $file->getClientOriginalName(),
-                'path' => $file->store($dir),
-                'size' => $file->getSize()
-            ]);
-        }
-
-        $upload_ids = array_map(function($u){
-            return $u->id;
-        }, $uploads);
-        $files = File::whereIn('id', $upload_ids)->get();
-        
-        return response()->json([
-            'status' => true,
-            'message' => 'success',
-            'files' => $files
-        ]);
+        //
     }
 
     /**
@@ -105,10 +80,5 @@ class FilesController extends Controller
     public function destroy($id)
     {
         //
-    }
-
-    public function download($uid,$year, $month, $filename) {
-        $path = "$uid/$year/$month/$filename";
-        return Storage::download($path);
     }
 }

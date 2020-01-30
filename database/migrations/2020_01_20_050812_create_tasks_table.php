@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSpacesTable extends Migration
+class CreateTasksTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,14 @@ class CreateSpacesTable extends Migration
      */
     public function up()
     {
-        Schema::create('spaces', function (Blueprint $table) {
-            $table->unsignedBigInteger('space_id')->primary();
+        Schema::create('tasks', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->unsignedBigInteger('user_id');
+            $table->text('body');
+            $table->timestamp('due_at')->nullable();
+            $table->timestamp('completed_at')->nullable();
             $table->timestamps();
-        });
+        }); 
     }
 
     /**
@@ -26,6 +30,6 @@ class CreateSpacesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('spaces');
+        Schema::dropIfExists('tasks');
     }
 }

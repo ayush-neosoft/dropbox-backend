@@ -12,10 +12,6 @@ class File extends Model
   	return $this->belongsTo('App\User', 'user_id');
 	}
 
-	public function space() {
-  	return $this->belongsTo('App\Space', 'space_id');
-	}
-
 	public function folder() {
   	return $this->belongsTo('App\Folder', 'folder_id');
 	}

@@ -16,10 +16,10 @@ class CreateFilesTable extends Migration
         Schema::create('files', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('space_id');
             $table->unsignedBigInteger('folder_id');            
             $table->string('title');            
             $table->text('path');
+            $table->decimal('size', 10, 2);
             $table->timestamps();
         });
     }

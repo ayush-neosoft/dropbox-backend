@@ -38,10 +38,6 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function space() {
-        return $this->hasOne('App\Space', 'space_id', 'user_id');
-    }
-
     public function folders() {
         return $this->hasMany('App\Folder');
     }

@@ -10,10 +10,6 @@ class Folder extends Model
   	return $this->belongsTo('App\User', 'user_id');
 	}
 
-	public function space() {
-  	return $this->belongsTo('App\Space', 'space_id');
-	}
-
 	public function files() {
 		return $this->hasMany('App\File');
 	}
