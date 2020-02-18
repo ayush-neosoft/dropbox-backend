@@ -15,7 +15,7 @@ class UsersController extends Controller
      */
     public function index()
     {
-      return $users = User::all()->except(Auth::id());
+      return $users = User::with('team')->get()->except(Auth::id());
     }
 
     /**
@@ -37,8 +37,7 @@ class UsersController extends Controller
      */
     public function show($id)
     {
-      $user = User::find($id);
-      return $user;
+      return User::with('team', 'snippets')->where('id', $id)->first();
     }
 
     /**

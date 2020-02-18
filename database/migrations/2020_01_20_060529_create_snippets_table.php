@@ -18,9 +18,10 @@ class CreateSnippetsTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->string('title');
             $table->text('content');
-            $table->integer('stars');
-            $table->boolean('is_private');
-            $table->boolean('is_pinned');
+            $table->integer('stars')->default(0);
+            $table->boolean('is_private')->default(false);
+            $table->boolean('is_pinned')->default(false);
+            $table->unsignedBigInteger('forked_from_uid')->nullable();
             $table->timestamps();
         });
     }

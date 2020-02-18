@@ -15,10 +15,11 @@ class UsersTableSeeder extends Seeder
     {
     	User::create([
     		'name' => 'Ayush Likhar',
+            'team_id' => 1,
     		'email' => 'ayush.likhar@neosofttech.com',
     		'password' => Hash::make('password')
     	]);
         
-        factory(App\User::class, 49)->create();
+        factory(App\User::class, 48)->create();
     }
 }

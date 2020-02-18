@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Task;
 
 class TasksController extends Controller
 {
@@ -13,17 +13,7 @@ class TasksController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return Task::where('user_id', auth()->user()->id)->get();
     }
 
     /**
@@ -32,9 +22,14 @@ class TasksController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store()
     {
-        //
+        $task = new Task;
+        $task->user_id = auth()->user()->id;
+        $task->content = request()->content;
+        $task->save();
+
+        return response()->json($task, 201);
     }
 
     /**
@@ -43,20 +38,9 @@ class TasksController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Task $task)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        return $task;
     }
 
     /**
@@ -66,9 +50,13 @@ class TasksController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Task $task)
     {
-        //
+        $task->user_id = auth()->user()->id;
+        $task->content = request()->content;
+        $task->update();
+
+        return response()->json($task, 200);
     }
 
     /**
@@ -77,8 +65,10 @@ class TasksController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Task $task)
     {
-        //
+        if($task->delete()) {
+            return response()->json('Successfully Deleted');
+        }
     }
 }
